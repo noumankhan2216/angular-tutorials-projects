@@ -7,26 +7,28 @@ import { Recipe } from './recipe.model';
 @Injectable()
 export class RecipeService {
   recipeChanged = new Subject<Recipe[]>()
-  private recipes: Recipe[] = [
-      new Recipe(
-        'A Test Recipe',
-        'This is simply a test',
-        'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/british_shakshuka_26737_16x9.jpg',
-        [
-          new Ingredient('Meat', 1),
-          new Ingredient('French Fries', 20)
-        ]
-      ),
-      new Recipe(
-        'Another Test Recipe',
-        'This is simply a test',
-        'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/british_shakshuka_26737_16x9.jpg',
-        [
-          new Ingredient('Meat', 1),
-          new Ingredient('French Fries', 20)
-        ]
-      ),
-  ];
+
+  // private recipes: Recipe[] = [
+  //     new Recipe(
+  //       'A Test Recipe',
+  //       'This is simply a test',
+  //       'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/british_shakshuka_26737_16x9.jpg',
+  //       [
+  //         new Ingredient('Meat', 1),
+  //         new Ingredient('French Fries', 20)
+  //       ]
+  //     ),
+  //     new Recipe(
+  //       'Another Test Recipe',
+  //       'This is simply a test',
+  //       'https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/british_shakshuka_26737_16x9.jpg',
+  //       [
+  //         new Ingredient('Meat', 1),
+  //         new Ingredient('French Fries', 20)
+  //       ]
+  //     ),
+  // ];
+  private recipes: Recipe[] = [];
   constructor(private shoppingListService: ShoppingListService){ }
 
   getRecipes(){
@@ -51,5 +53,10 @@ export class RecipeService {
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
     this.recipeChanged.next(this.recipes.slice());
+  }
+
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
+    this.recipeChanged.next(this.recipes.slice())
   }
 }
